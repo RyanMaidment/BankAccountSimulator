@@ -5,8 +5,9 @@ Assignment: Lab 5
 Date: Mar 3, 2019 */
 public class SavingsAccount extends BankAccount {
 	// variables
-	private double minBalance;
-	private double interestRate = rnd.nextInt(0-1);
+	private double min = 0;
+	private double max = 1;
+	private double interestRate = min + (max - min) * rnd.nextDouble();
 
 	/*
 	 * This two string updates the Super.tostring
@@ -14,7 +15,7 @@ public class SavingsAccount extends BankAccount {
 	 * @see BankAccount#toString()
 	 */
 	public String toString() {
-		return super.toString() + " Minimum balance $" + minBalance + " Interest rate: " + interestRate;
+		return super.toString() + " Interest rate: " + this.interestRate;
 
 	}
 
@@ -25,12 +26,6 @@ public class SavingsAccount extends BankAccount {
 	 */
 	public boolean addBankAccount() {
 		super.addBankAccount();
-
-		System.out.println("Enter minimum balance: ");
-		this.minBalance = sc.nextDouble();
-
-		System.out.println("Enter interest Rate (should be a number between (0-1)): ");
-		this.interestRate = sc.nextDouble();
 		return true;
 	}
 

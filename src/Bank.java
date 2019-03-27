@@ -6,6 +6,8 @@ Assignment: Lab 5
 Date: Mar 3, 2019 */
 import java.util.Scanner;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Formatter;
 
 public class Bank {
@@ -14,6 +16,7 @@ public class Bank {
 	private static int numAccounts = 0;
 	private int sizeBank = 10;
 	private Scanner insert = new Scanner(System.in);
+	Formatter output;
 
 	/**
 	 * 
@@ -86,10 +89,13 @@ public class Bank {
 		System.out.println("\nBanking System\n************************\nNumber of Account holders: " + numAccounts);
 		for (int i = 0; i < numAccounts; i++) {
 			System.out.println(accounts[i].toString()); // prints out all accounts using for loop.
-		}
+			
+		for(BankAccount  ) {
+			
+		
 	
 	}
-
+}
 	/**
 	 * This method will update a certain bank accounts balance based on user input.
 	 */
@@ -134,32 +140,59 @@ public class Bank {
 	}
 
 	/**
-	 * This method used a for-each statment to update all bank accounts in the array
+	 * This method used a for-each statement to update all bank accounts in the array
 	 * using the abstract method monthlyAccountUpdate.
 	 */
 	public void monthlyUpdate() {
-		for (BankAccount accounts : accounts) { // for-each statment to update accounts.
+		for (BankAccount accounts : accounts) { // for-each statement to update accounts.
 			accounts.monthlyAccountUpdate();
 		}
 	}
 
 	public void openInputFile() {
 
-	}
+		try {
+			Scanner insert = new Scanner(Paths.get("bankinput.txt"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
 
 	public void readRecords() {
-
+		
+		System.out.printf("%-10s%-12s%-12s%10%n", "Account", "First Name"
+				, "Last Name", "Balance");
+		
+		while(insert.hasNext()) {
+			System.out.printf("%-10s%-12s%-12s%10%n", insert.nextInt(),
+					insert.next(), insert.next(), insert.nextDouble());
+		}
+		
 	}
 
 	public void closeInputFile() {
 
+		if(insert != null)
+			insert.close();
+		
 	}
 
 	public void openOutputFile() {
-
+		
+		try {
+			output = new Formatter("bankoutput.txt");
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void closeOutputFile() {
 
+		if(output != null)
+			output.close();
+		
 	}
 }

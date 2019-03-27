@@ -16,7 +16,7 @@ public class Lab7 {
 	public static void main(String[]args) {
 		//variables
 		String menu;
-		Bank bank = new Bank(); //creats bank account object.
+		Bank bank = new Bank(); //create bank account object.
 		Scanner input = new Scanner(System.in);
 		
 		do {
@@ -26,6 +26,7 @@ public class Lab7 {
 			System.out.println("Enter P to print all accounts.");
 			System.out.println("Enter M to run monthly update.");
 			System.out.println("Enter Q to quit.");
+			System.out.println("Enter R to read records.");
 			System.out.println("Enter your option: ");
 
 			menu = input.nextLine();
@@ -35,14 +36,15 @@ public class Lab7 {
 			case "a":
 			case "A":
 		
-				bank.addAccount(); //creats bank account. 
+				bank.addAccount(); //creates bank account. 
 				
 				break;
 
 			case "u":
 			case "U":
 
-				bank.updateAccount(); //updates a pre existing bank account balance.
+				bank.updateAccount();
+										//updates a pre existing bank account balance.
 				
 				break;
 
@@ -67,9 +69,9 @@ public class Lab7 {
 				break; 
 			case "r":
 			case"R":
-				
+				bank.openInputFile();
 				bank.readRecords();
-			
+				bank.closeInputFile();
 				break;
 			}
 	

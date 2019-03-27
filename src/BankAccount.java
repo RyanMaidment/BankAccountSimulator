@@ -117,9 +117,17 @@ public abstract class BankAccount {
 		this.balance = balance;
 	}
 
+public void deposit() {
+		
+	}
+
+public void withdraw() {
+	
+}
 	/**
 	 * This is an abstract method. More can be seen in the #SavingsAccount and
 	 * #ChequingAccount classes.
 	 */
 	abstract void monthlyAccountUpdate();
 }
+
