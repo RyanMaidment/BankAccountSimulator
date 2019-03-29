@@ -12,7 +12,7 @@ public class ChequingAccount extends BankAccount {
 	 * @see BankAccount#toString()
 	 */
 	public String toString() {
-		return super.toString() + " Fee: $" + this.fee;
+		return "\nC "+ super.toString() + " Fee: $" + this.fee;
 
 	}
 

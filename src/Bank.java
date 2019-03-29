@@ -5,34 +5,28 @@ Course & Section: CST8132 310
 Assignment: Lab 5
 Date: Mar 3, 2019 */
 import java.util.Scanner;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.FormatterClosedException;
+import java.util.List;
+import java.util.Locale;
+import java.util.NoSuchElementException;
 
 public class Bank {
 	// variables
-	private static BankAccount[] accounts;
+	private ArrayList <BankAccount> accounts = new ArrayList<BankAccount>(numAccounts);
 	private static int numAccounts = 0;
 	private int sizeBank = 10;
 	private Scanner insert = new Scanner(System.in);
-	Formatter output;
-
-	/**
-	 * 
-	 */
-	public Bank() {
-		accounts = new BankAccount[sizeBank];
-	}
-
-	/**
-	 * Param constructor to initialize the BankAccount array.
-	 * 
-	 * @param sizeBank
-	 */
-	public Bank(int sizeBank) {
-		accounts = new BankAccount[sizeBank];
-	}
+	private String choice;
+	private static Formatter output; //outputs text to a file.
+	Scanner yolo;
+	ArrayList <BankAccount> act = new ArrayList<BankAccount>();
 
 	/**
 	 * This method is used for adding a chequing or savings account based on user
@@ -42,28 +36,23 @@ public class Bank {
 	 */
 
 	public boolean addAccount() {
-		String choice = null;
-
-		if (numAccounts > sizeBank) {
-			System.out.println("Sorry bank is full.");
-		}
+		
 		do {
 			System.out.println("Enter account type (s for savings, c for chequing): ");
 
 			choice = insert.nextLine();
 
 			if (choice.toLowerCase().equals("s")) { // creates savings account.
-				accounts[numAccounts] = new SavingsAccount();
+				accounts.add(new SavingsAccount());
 			} else if (choice.toLowerCase().equals("c")) { // creates chequing account.
-				accounts[numAccounts] = new ChequingAccount();
+				accounts.add(new ChequingAccount());
 			}
 		} while (!choice.toLowerCase().equals("s") && !choice.toLowerCase().equals("c"));
 
-		if (accounts[numAccounts].addBankAccount()) {
+		if (accounts.get(numAccounts).addBankAccount()) {
 			numAccounts++; // adds bank account.
 		} else
 			System.out.println("Account not added.");
-
 		return false;
 
 	}
@@ -75,49 +64,47 @@ public class Bank {
 	public void displayAccount() {
 
 		try {
-			System.out.println(accounts[findAccount()]);
+			System.out.println(accounts.get(findAccount()));
 		} catch (Exception e) {
 			System.out.println("Invalid Account Number.");
 
 		}
 	}
 
-	/**
+	/*
 	 * This method prints all the bank accounts in the accounts array.
 	 */
 	public void printAccountDetails() {
 		System.out.println("\nBanking System\n************************\nNumber of Account holders: " + numAccounts);
-		for (int i = 0; i < numAccounts; i++) {
-			System.out.println(accounts[i].toString()); // prints out all accounts using for loop.
-			
-		for(BankAccount  ) {
-			
-		
+		for (BankAccount accounts : accounts) {
+			System.out.println(accounts.toString()); // prints out all accounts using for loop.
 	
+		}
+		for(BankAccount accounts : accounts) {
+
+			output.format("%s%n", accounts.toString());
+		}
 	}
-}
+	
+	
+	
+
 	/**
 	 * This method will update a certain bank accounts balance based on user input.
 	 */
 	public void updateAccount() {
 
-		System.out.println("Enter account number: ");
-		long num = insert.nextLong();
-		for (int i = 0; i < numAccounts; i++) { // for loop to loop through accounts.
-			if (accounts[i].accountNumber == num) {
-				System.out.println("Enter new account balance: ");
-				accounts[i].balance = insert.nextDouble(); // updates chosen bank account with desired balance.
-			} else
-				System.out.println("Error, invalid account.");
+			System.out.println("Enter account number: ");
+			long num = insert.nextLong();
+			for (BankAccount accounts : accounts) { // for loop to loop through accounts.
+				if (accounts.accountNumber == num) {
+					System.out.println("Enter new account balance: ");
+					accounts.balance = insert.nextDouble(); // updates chosen bank account with desired balance.
+				} else
+					System.out.println("Error, invalid account.");
 
-		}
-		try {
-			Formatter txt = new Formatter("C:\\Users\\Ryan\\Documents\\bankoutput.txt");
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found!");
-			e.printStackTrace();
-		}
-	}
+			}
+		} 
 
 	/**
 	 * This method will use a for loop and nested if statement to find a certain
@@ -130,8 +117,8 @@ public class Bank {
 		System.out.println("Enter account number: ");
 		long num = insert.nextLong();
 
-		for (int i = 0; i < numAccounts; i++) { // loops through accounts.
-			if (accounts[i].accountNumber == num) { // find specific account.
+		for (int i = 0; i < accounts.size(); i++) { // loops through accounts.
+			if (i == num) { // find specific account.
 				return i; // returns specific account.
 			}
 		}
@@ -152,29 +139,32 @@ public class Bank {
 	public void openInputFile() {
 
 		try {
-			Scanner insert = new Scanner(Paths.get("bankinput.txt"));
+			yolo = new Scanner(Paths.get("bankinput.txt"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		}
 
-	public void readRecords() {
-		
-		System.out.printf("%-10s%-12s%-12s%10%n", "Account", "First Name"
-				, "Last Name", "Balance");
-		
-		while(insert.hasNext()) {
-			System.out.printf("%-10s%-12s%-12s%10%n", insert.nextInt(),
-					insert.next(), insert.next(), insert.nextDouble());
+	public void readRecords() throws IOException {
+	
+		try {
+			yolo = new Scanner(Paths.get("bankinput.txt"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		while (yolo.hasNextLine()) {
+			yolo.toString();
+		}
+
+	
 		
 	}
 
 	public void closeInputFile() {
 
-		if(insert != null)
-			insert.close();
 		
 	}
 
@@ -191,7 +181,6 @@ public class Bank {
 
 	public void closeOutputFile() {
 
-		if(output != null)
 			output.close();
 		
 	}

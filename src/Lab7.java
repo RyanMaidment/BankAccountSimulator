@@ -3,6 +3,8 @@ Name: Ryan Maidment
 Course & Section: CST8132 310
 Assignment: Lab 5
 Date: Mar 3, 2019 */
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Lab7 {
@@ -11,9 +13,10 @@ public class Lab7 {
 	 * This is a menu used for navigating through the entire program. Calling on the Bank class to execute the
 	 * methods. Using a case switch to navigate through the menu.
 	 * @param args
+	 * @throws IOException 
 	 * 
 	 */
-	public static void main(String[]args) {
+	public static void main(String[]args) throws IOException {
 		//variables
 		String menu;
 		Bank bank = new Bank(); //create bank account object.
@@ -58,8 +61,10 @@ public class Lab7 {
 			case "p":
 			case "P":
 				
+				bank.openOutputFile();
 				bank.printAccountDetails(); //prints all bank accounts. 
-				
+				bank.closeOutputFile();
+			
 				break;
 			case "m":
 			case "M":
@@ -69,9 +74,10 @@ public class Lab7 {
 				break; 
 			case "r":
 			case"R":
-				bank.openInputFile();
+				//bank.openInputFile();
 				bank.readRecords();
 				bank.closeInputFile();
+			
 				break;
 			}
 	
