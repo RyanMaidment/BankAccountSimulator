@@ -74,7 +74,7 @@ public class Lab7 {
 				break; 
 			case "r":
 			case"R":
-				//bank.openInputFile();
+				bank.openInputFile();
 				bank.readRecords();
 				bank.closeInputFile();
 			

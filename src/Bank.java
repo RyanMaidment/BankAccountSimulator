@@ -26,7 +26,6 @@ public class Bank {
 	private String choice;
 	private static Formatter output; //outputs text to a file.
 	Scanner yolo;
-	ArrayList <BankAccount> act = new ArrayList<BankAccount>();
 
 	/**
 	 * This method is used for adding a chequing or savings account based on user
@@ -147,20 +146,29 @@ public class Bank {
 		}
 
 	public void readRecords() throws IOException {
-	
-		try {
-			yolo = new Scanner(Paths.get("bankinput.txt"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		String accountType = null;
+		String firstName;
+		String lastName;
+		long accountNum;
+		String email;
+		double balance;
 		
 		while (yolo.hasNextLine()) {
-			yolo.toString();
+			accountType = yolo.next();
+			firstName = yolo.next();
+			lastName = yolo.next();
+			accountNum = yolo.nextLong();
+			email = yolo.next();
+			balance = yolo.nextDouble();
 		}
 
-	
-		
+		if(accountType == "C") {
+			accounts.add(new ChequingAccount());
+		}
+		else if(accountType == "S") {
+			accounts.add(new SavingsAccount());
+		}
 	}
 
 	public void closeInputFile() {
