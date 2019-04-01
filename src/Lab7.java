@@ -3,7 +3,6 @@ Name: Ryan Maidment
 Course & Section: CST8132 310
 Assignment: Lab 5
 Date: Mar 3, 2019 */
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -16,16 +15,14 @@ public class Lab7 {
 	 * @throws IOException 
 	 * 
 	 */
-	public static void main(String[]args) throws IOException {
+	public static void main(String[]args) {
 		//variables
 		String menu;
 		Bank bank = new Bank(); //create bank account object.
 		Scanner input = new Scanner(System.in);
 		
 		do {
-			System.out.println("Enter A to add new account");
-			System.out.println("Enter U to update an account.");
-			System.out.println("Enter D to display an account.");
+
 			System.out.println("Enter P to print all accounts.");
 			System.out.println("Enter M to run monthly update.");
 			System.out.println("Enter Q to quit.");
@@ -47,7 +44,7 @@ public class Lab7 {
 			case "U":
 
 				bank.updateAccount();
-										//updates a pre existing bank account balance.
+										//prompts user to withdraw, deposit or update account balance.
 				
 				break;
 

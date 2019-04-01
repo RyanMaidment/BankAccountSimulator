@@ -1,8 +1,8 @@
 /*
 Name: Ryan Maidment
 Course & Section: CST8132 310
-Assignment: Lab 5
-Date: Mar 3, 2019 */
+Assignment: Lab 7
+Date: Mar 31, 2019 */
 public class SavingsAccount extends BankAccount {
 	// variables
 	private double min = 0;

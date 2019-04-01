@@ -2,8 +2,8 @@
 /*
 Name: Ryan Maidment
 Course & Section: CST8132 310
-Assignment: Lab 5
-Date: Mar 3, 2019 */
+Assignment: Lab 7
+Date: Mar 31, 2019 */
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Random;
@@ -12,12 +12,13 @@ public abstract class BankAccount {
 	// variables
 	protected Random rnd = new Random();
 	private boolean validInput;
-	private Person accHolder;
-	protected long accountNumber = 0;
+	Person accHolder;
+	protected long accountNumber;
 	protected double balance;
 	private String email_pattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" // https://stackoverflow.com/questions/3732809/how-can-a-string-be-validated-in-java
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"; // used to validate email address
-	Scanner sc = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
+	private double amount;
 
 	/*
 	 * This is the super toString that the Savings and Chequing Account call. This
@@ -81,13 +82,13 @@ public abstract class BankAccount {
 		}
 
 		System.out.println("Enter your email address: ");
-		String emailAddress = sc.next();
+		String email = sc.next();
 
-		if (!emailAddress.matches(email_pattern)) { // uses email pattern to error check.
+		if (!email.matches(email_pattern)) { // uses email pattern to error check.
 			do {
 				System.out.println("Error, please enter a valid email address.: ");
-				emailAddress = sc.next();
-			} while (!emailAddress.matches(email_pattern));
+				email = sc.next();
+			} while (!email.matches(email_pattern));
 		}
 		System.out.println("Enter a balance: ");
 		validInput = false;
@@ -101,8 +102,8 @@ public abstract class BankAccount {
 				sc.next();
 			}
 		}
-		this.accHolder = new Person(firstName, lastName, emailAddress); // creates accHolder with user
-																						// input given above.
+		this.accHolder = new Person(firstName, lastName, email); // creates accHolder with user
+																	// input given above.
 
 		return true;
 
@@ -117,17 +118,54 @@ public abstract class BankAccount {
 		this.balance = balance;
 	}
 
-public void deposit() {
-		
+	/**
+	 * This method asks user for deposit amount. If amount is negative it asks for vaild input. 
+	 */
+	public void deposit() {
+
+		System.out.println("How much would you like to deposit? ");
+		validInput = false;
+		while (!validInput) { // while statement that checks if validInput is true.
+			try {
+				this.amount = sc.nextDouble();
+				if (amount > 0) {
+					validInput = true;
+					break;
+				}
+			} catch (IllegalArgumentException e) { // catches invaild input
+				System.out.println("Error, invalid number.\nPlease enter a positive number: ");
+				sc.next();
+			}
+		}
+		amount += this.balance;
 	}
 
-public void withdraw() {
-	
-}
+	/**
+	 * This method asks for withdraw amount. If amount it negative or is larger than balance it will
+	 * promt user for vaild input.
+	 */
+	public void withdraw() {
+		System.out.println("How much would you like to withdraw? ");
+		validInput = false;
+		while (!validInput) { // while statement that checks if validInput is true.
+			try {
+				this.amount = sc.nextDouble();
+				if (amount > 0 || amount < balance) {
+					validInput = true;
+					break;
+				}
+			} catch (IllegalArgumentException e) { // catches invaild input
+				System.out.println("Error, invalid number.\nPlease enter a valid number: ");
+				sc.next();
+			}
+		}
+		amount -= balance;
+	}
+
 	/**
 	 * This is an abstract method. More can be seen in the #SavingsAccount and
 	 * #ChequingAccount classes.
 	 */
 	abstract void monthlyAccountUpdate();
-}
 
+}

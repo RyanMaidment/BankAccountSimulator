@@ -1,13 +1,13 @@
 /*
 Name: Ryan Maidment
 Course & Section: CST8132 310
-Assignment: Lab 5
-Date: Mar 3, 2019 */
+Assignment: Lab 7
+Date: Mar 31, 2019 */
 public class Person {
 	// variables
 	private String firstName;
 	private String lastName;
-	private String emailAddress;
+	private String email;
 
 	/**
 	 * This parameterized contruster is used to initialize the varibles associated
@@ -17,11 +17,11 @@ public class Person {
 	 * @param lastName
 	 * @param emailAddress
 	 */
-	public Person(String firstName, String lastName, String emailAddress) {
+	public Person(String firstName, String lastName, String email) {
 
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.emailAddress = emailAddress;
+		this.email = email;
 
 	}
 
@@ -32,7 +32,7 @@ public class Person {
 	 */
 	public String toString() {
 		return " Name: " + firstName + " " + lastName + " Email Address: "
-				+ emailAddress;
+				+ email;
 
 	}
 
