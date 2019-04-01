@@ -12,7 +12,6 @@ public class Lab7 {
 	 * This is a menu used for navigating through the entire program. Calling on the Bank class to execute the
 	 * methods. Using a case switch to navigate through the menu.
 	 * @param args
-	 * @throws IOException 
 	 * 
 	 */
 	public static void main(String[]args) {
