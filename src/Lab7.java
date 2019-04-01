@@ -3,7 +3,6 @@ Name: Ryan Maidment
 Course & Section: CST8132 310
 Assignment: Lab 5
 Date: Mar 3, 2019 */
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Lab7 {
